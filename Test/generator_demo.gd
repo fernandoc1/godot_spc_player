@@ -14,6 +14,7 @@ func _fill_buffer():
 		#var vec = Vector2(array.decode_u16(i*2), i);
 		#playback.push_frame(vec)
 		playback.push_frame(Vector2.ONE * array.decode_s16(i*2))  # Audio frames are stereo.
+		#playback.push_frame(Vector2.ONE * array.decode_s16(i*2))  # Audio frames are stereo.
 		#playback.push_frame(Vector2.ONE * (i / 65535))  # Audio frames are stereo.
 
 func _process(_delta):
