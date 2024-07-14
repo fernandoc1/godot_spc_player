@@ -1,0 +1,24 @@
+# Godot 4+ specific ignores
+.godot/
+*.import
+
+# Exclude "proprietary" assets
+Audio/
+Graphics/
+Shaders/
+*.spc
+
+#Object files
+*.o
+*.so
+
+bin/*
+demo/*
+godot-cpp/*
+
+#vscode
+.vscode/*
+
+#scons
+.sconsign.dblite
+
