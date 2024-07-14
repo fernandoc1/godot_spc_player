@@ -6,7 +6,7 @@
 using namespace godot;
 
 void GDSpcPlayer::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("get_data"), &GDSpcPlayer::get_data);
+	ClassDB::bind_method(D_METHOD("get_data", "framesPerBuffer"), &GDSpcPlayer::get_data);
 	ClassDB::bind_method(D_METHOD("get_sample_rate"), &GDSpcPlayer::get_sample_rate);
 
 	ClassDB::bind_method(D_METHOD("open", "path"), &GDSpcPlayer::open);
@@ -49,13 +49,17 @@ int GDSpcPlayer::get_sample_rate() {
 	return SNES_SPC::sample_rate;
 }
 
-PackedByteArray GDSpcPlayer::get_data() const {
-	int framesPerBuffer = 2048;
+PackedByteArray GDSpcPlayer::get_data(int framesPerBuffer) const {
+	//std::cout << "Getting data:" << std::endl;
+	//int framesPerBuffer = 2048;
 	PackedByteArray array;
-	array.resize(framesPerBuffer);
+	array.resize(framesPerBuffer * 2);
 
 	snes_spc->play(framesPerBuffer, (short*)array.ptrw());
 	filter->run((short*)array.ptrw(), framesPerBuffer);
 
+	std::cout << "Getting data:" << array.size() << " bytes got" << std::endl;
+
 	return array;
+	//return PackedByteArray();
 }
