@@ -47,7 +47,7 @@ Error GDSpcPlayer::open(const String &path) {
 }
 
 int GDSpcPlayer::get_sample_rate() {
-	return SNES_SPC::sample_rate;
+	return SNES_SPC::sample_rate * 2;
 }
 
 PackedVector2Array GDSpcPlayer::get_data(int framesPerBuffer) const {

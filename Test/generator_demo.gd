@@ -19,7 +19,7 @@ func _process(_delta):
 func _ready():
 	spc_player.open("res://Audio/test.spc");
 	# Setting mix rate is only possible before play().
-	$Player.stream.mix_rate = spc_player.get_sample_rate() * 2;
+	$Player.stream.mix_rate = spc_player.get_sample_rate();
 	$Player.play()
 	playback = $Player.get_stream_playback()
 	# `_fill_buffer` must be called *after* setting `playback`,
