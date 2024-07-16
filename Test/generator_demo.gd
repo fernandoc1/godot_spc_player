@@ -10,15 +10,7 @@ var spc_player: GDSpcPlayer = GDSpcPlayer.new()
 func _fill_buffer():
 	var to_fill = playback.get_frames_available()
 	var array = spc_player.get_data(to_fill)
-	for i in array.size() / 2:
-		#var vec = Vector2(array.decode_s16(i*2), array.decode_s16(i*2));
-		var value = array.decode_s16(i*2) / 65535.0
-		var vec = Vector2(value, value);
-		#print(vec)
-		playback.push_frame(vec)
-		#playback.push_frame(Vector2.ONE * array.decode_s16(i*2))  # Audio frames are stereo.
-		#playback.push_frame(Vector2.ONE * array.decode_s16(i*2))  # Audio frames are stereo.
-		#playback.push_frame(Vector2.ONE * (i / 65535))  # Audio frames are stereo.
+	playback.push_buffer(array)
 
 func _process(_delta):
 	_fill_buffer()

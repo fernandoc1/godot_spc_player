@@ -3,6 +3,8 @@
 
 #include <godot_cpp/classes/file_access.hpp>
 
+#include <vector>
+
 using namespace godot;
 
 void GDSpcPlayer::_bind_methods() {
@@ -26,7 +28,6 @@ GDSpcPlayer::~GDSpcPlayer() {
 	}
 }
 
-
 Error GDSpcPlayer::open(const String &path) {
 	PackedByteArray spcData = FileAccess::get_file_as_bytes(path);
 	this->snes_spc = new SNES_SPC;
@@ -49,17 +50,17 @@ int GDSpcPlayer::get_sample_rate() {
 	return SNES_SPC::sample_rate;
 }
 
-PackedByteArray GDSpcPlayer::get_data(int framesPerBuffer) const {
-	//std::cout << "Getting data:" << std::endl;
-	//int framesPerBuffer = 2048;
-	PackedByteArray array;
-	array.resize(framesPerBuffer * 2);
+PackedVector2Array GDSpcPlayer::get_data(int framesPerBuffer) const {
+	std::vector<short> audioData(framesPerBuffer);
 
-	snes_spc->play(framesPerBuffer, (short*)array.ptrw());
-	filter->run((short*)array.ptrw(), framesPerBuffer);
+	snes_spc->play(framesPerBuffer, audioData.data());
+	filter->run(audioData.data(), framesPerBuffer);
 
-	std::cout << "Getting data:" << array.size() << " bytes got" << std::endl;
+	PackedVector2Array output;
+	for(short data: audioData) {
+		float value = (float)(data) / (float)(0xFFFF);
+		output.push_back(Vector2(value, value));
+	}
 
-	return array;
-	//return PackedByteArray();
+	return output;
 }

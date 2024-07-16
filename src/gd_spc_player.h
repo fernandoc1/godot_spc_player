@@ -29,7 +29,7 @@ public:
 
 	Error open(const String &path);
 	int get_sample_rate();
-	PackedByteArray get_data(int framesPerBuffer) const;
+	PackedVector2Array get_data(int framesPerBuffer) const;
 };
 
 }
