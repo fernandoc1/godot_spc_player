@@ -9,8 +9,8 @@ script = ExtResource("1")
 
 [node name="Player" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamGenerator_8tsrq")
-volume_db = -12.041
 autoplay = true
+mix_target = 2
 
 [node name="CenterContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
