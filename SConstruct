@@ -11,7 +11,7 @@ def validate_parent_dir(key, val, env):
         raise UserError("'%s' is not a directory: %s" % (key, os.path.dirname(val)))
 
 
-libname = "EXTENSION-NAME"
+libname = "GDSpcPlayer"
 projectdir = "demo"
 
 localEnv = Environment(tools=["default"], PLATFORM="")
@@ -54,7 +54,7 @@ env.Append(CPPPATH=["src/"])
 sources = Glob("src/*.cpp")
 sources = sources + Glob("src/snes_spc/*.cpp")
 
-file = "{}{}{}".format(libname, env["suffix"], env["SHLIBSUFFIX"])
+file = "{}{}".format(libname, env["SHLIBSUFFIX"])
 
 if env["platform"] == "macos" or env["platform"] == "ios":
     platlibname = "{}.{}.{}".format(libname, env["platform"], env["target"])
